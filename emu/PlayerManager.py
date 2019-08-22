@@ -41,24 +41,45 @@ class PlayerManager(object):
         characterID = params["characterID"]
         index = params["index"]
         characterID = characterID + index[0]
+        #BAN PSN ID Here
+        if characterID == "":
+            logging.info("BANNED Player %r Tryed to login and failed" % characterID)
+            return 0x00
+        else:
+            self.ensure_user_created(characterID)
+            logging.info("Player %r logged in" % characterID)
         
-        self.ensure_user_created(characterID)
-        logging.info("Player %r logged in" % characterID)
+            self.debug_db_row(characterID)
         
-        self.debug_db_row(characterID)
-        
-        data = characterID + "\x00"
-        return 0x17, data, characterID
+            data = characterID + "\x00"
+            return 0x17, data, characterID
         
     def handle_getQWCData(self, params, characterID):
         self.ensure_user_created(characterID)
         
         row = self.conn.execute("select desired_tendency from players where characterID = ?", (characterID,)).fetchone()
         desired_tendency = row[0]
-        
-        data = ""
-        for i in xrange(7):
-            data += struct.pack("<ii", desired_tendency, 0)
+        #Checks Desired Tendency and Sets According, Secound number in structpack controls tendency Positive is White, Negative is Black Max Ingame value 200.
+        if desired_tendency == 200:
+            data = ""
+            for i in xrange(7):
+                data += struct.pack("<ii", 200, 0)
+                
+        elif desired_tendency == -200:
+            data = ""
+            for i in xrange(7):
+                data += struct.pack("<ii", -200, 0)
+
+        elif desired_tendency == 0:
+            data = ""
+            for i in xrange(7):
+                data += struct.pack("<ii", 0 0)
+
+        #Default Tendency for all others
+        else:
+            data = ""
+            for i in xrange(7):
+                data += struct.pack("<ii", 0, 0)
             
         logging.debug("Player %r with desired tendency %d" % (characterID, desired_tendency))
         

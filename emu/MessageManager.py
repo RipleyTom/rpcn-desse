@@ -147,10 +147,36 @@ class MessageManager(object):
     def handle_addBloodMessage(self, params):
         msg = Message()
         msg.from_params(params, None)
-        
-        if msg.mainMsgID == 13002:
+        #Set Black Tendency in DB
+        if msg.mainMsgID == 14019:
+            playerdbfilename = "/root/Desktop/desse-master/db/players.sqlite"
+            playerconn = sqlite3.connect(playerdbfilename)
+            playerc = playerconn.cursor()
+            playerc.execute("update players set desired_tendency = -200 where characterID = ?", (msg.characterID,))
+            playerconn.commit()
+            playerconn.close()
+            logging.info("Player %s triggered Pure Black World Tendency(-200) command" % (msg.characterID,))
             custom_command = (msg.messageID - 40700) * 10
-            logging.info("Player %s triggered custom command %d" % (msg.characterID, custom_command))
+        #Set White Tendency in DB
+        elif msg.mainMsgID == 13002:
+            playerdbfilename = "/root/Desktop/desse-master/db/players.sqlite"
+            playerconn = sqlite3.connect(playerdbfilename)
+            playerc = playerconn.cursor()
+            playerc.execute("update players set desired_tendency = 200 where characterID = ?", (msg.characterID,))
+            playerconn.commit()
+            playerconn.close()
+            logging.info("Player %s triggered Pure White World Tendency(200) command" % (msg.characterID,))
+            custom_command = (msg.messageID - 40700) * 10         
+        #Set Neutral Tendency in DB
+        elif msg.mainMsgID == 14021:
+            playerdbfilename = "/root/Desktop/desse-master/db/players.sqlite"
+            playerconn = sqlite3.connect(playerdbfilename)
+            playerc = playerconn.cursor()
+            playerc.execute("update players set desired_tendency = 0 where characterID = ?", (msg.characterID,))
+            playerconn.commit()
+            playerconn.close()
+            logging.info("Player %s triggered Neutral World Tendency(0) command" % (msg.characterID,))
+            custom_command = (msg.messageID - 40700) * 10
         else:
             c = self.conn.cursor()
             c.execute("insert into messages(characterID, blockID, posx, posy, posz, angx, angy, angz, messageID, mainMsgID, addMsgCateId, rating, legacy) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", msg.to_db_row()[1:])
@@ -179,15 +205,44 @@ class MessageManager(object):
     def handle_updateBloodMessageGrade(self, params, server):
         bmID = int(params["bmID"])
         
-        self.conn.execute("update messages set rating = rating + 1 where bmID = ?", (bmID,))
-        self.conn.commit()
+        if bmID == 2507788:
+            # Modify to Black tendency
+            playerdbfilename = "/root/Desktop/desse-master/db/players.sqlite"
+            playerconn = sqlite3.connect(playerdbfilename)
+            playerc = playerconn.cursor()
+            playerc.execute("update players set desired_tendency = -200 where characterID = ?", (msg.characterID,))
+            playerconn.commit()
+            playerconn.close()
+            logging.info("Player %s triggered custom WT -200 command" % (msg.characterID,))
+        elif bmID == 2507789:
+            # Modify to White tendency
+            playerdbfilename = "/root/Desktop/desse-master/db/players.sqlite"
+            playerconn = sqlite3.connect(playerdbfilename)
+            playerc = playerconn.cursor()
+            playerc.execute("update players set desired_tendency = 200 where characterID = ?", (msg.characterID,))
+            playerconn.commit()
+            playerconn.close()
+            logging.info("Player %s triggered custom WT 200 command" % (msg.characterID,))
+        elif bmID == 2508725:
+            # Modify to Neutral tendency
+            playerdbfilename = "/root/Desktop/desse-master/db/players.sqlite"
+            playerconn = sqlite3.connect(playerdbfilename)
+            playerc = playerconn.cursor()
+            playerc.execute("update players set desired_tendency = 0 where characterID = ?", (msg.characterID,))
+            playerconn.commit()
+            playerconn.close()
+            logging.info("Player %s triggered custom WT 0 command" % (msg.characterID,))
+        # Handles all other Messages		
+        else:
+            self.conn.execute("update messages set rating = rating + 1 where bmID = ?", (bmID,))
+            self.conn.commit()
         
-        row = self.conn.execute("select * from messages where bmID = ?", (bmID,)).fetchone()
-        msg = Message()
-        msg.from_db_row(row)
+            row = self.conn.execute("select * from messages where bmID = ?", (bmID,)).fetchone()
+            msg = Message()
+            msg.from_db_row(row)
         
-        server.PlayerManager.updateBloodMessageGrade(msg.characterID)
+            server.PlayerManager.updateBloodMessageGrade(msg.characterID)
         
-        logging.info("Recommended message %s" % str(msg))
+            logging.info("Recommended message %s" % str(msg))
         
         return 0x2a, "\x01"
