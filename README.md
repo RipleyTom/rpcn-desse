@@ -20,7 +20,7 @@ Requirements are the following
 3) pycrypto 
 
 Setup:
-After you have DNS Server running, Configure you Info.ss to your external IP.
+After you have DNS Server running, Configure Info.ss to your external IP.
 Then run the emulator.py
 
 
