@@ -8,7 +8,7 @@ This includes a wealth of upgrades,
 2) Northen Limits the unrealeased area is now playable via multiplayer to those with Debug units. (https://www.youtube.com/watch?v=rEdtoI3mzWg -  a player made a stream about this.)
 3) Longer list of Player location presented to users.
 4) Status is printed to a html page so users can view live stats online.
-5) Some misc. code improvements that i can remember, This was developed over another year. 
+5) Some misc. code improvements that i cant remember, This was developed over the year. 
 
 This code has been operating stable for over a year now. More improvements to come with additonal features to be added.
 Some prelim work is done for this. 
