@@ -1,26 +1,28 @@
-Yu-DeSSE - Yuvi Demon's Souls Server Emulator Fork
+# Yu-DeSSE - Yuvi Demon's Souls Server Emulator Fork
 
 New updated Demon's Souls Server Emulator that is being used on https://TheArchstones.com (currently the most popular DeS Server)
 
 This includes a wealth of upgrades,
-1) User Selectable World Tendency, 
-	Uses the sqllite DB for tracking this, Along side this is a Server management tool I developed to easily modify the sql table for anyone. But of course in game users can lay down certain messages to change there own world tendency
-2) Northen Limits the unrealeased area is now playable via multiplayer to those with Debug units. (https://www.youtube.com/watch?v=rEdtoI3mzWg -  a player made a stream about this.)
-3) Longer list of Player location presented to users.
-4) Status is printed to a html page so users can view live stats online.
-5) Some misc. code improvements that i cant remember, This was developed over the year. 
+1. User Selectable World Tendency, 
+	- Uses the sqllite DB for tracking this, Along side this is a Server management tool I developed to easily modify the sql table 	- for anyone. But of course in game users can lay down certain messages to change there own world tendency
+2. Northen Limits the unrealeased area is now playable via multiplayer to those with Debug units. (https://www.youtube.com/watch?v=rEdtoI3mzWg -  a player made a stream about this.)
+3. Longer list of Player location presented to users.
+4. Status is printed to a html page so users can view live stats online.
+5. Some misc. code improvements that i cant remember, This was developed over the year. 
 
 This code has been operating stable for over a year now. More improvements to come with additonal features to be added.
+
 Some prelim work is done for this. 
 
 
 Requirements are the following
-1) Dns proxy configured, You can use python DNS Proxy or Windows DNS Server which I ran for awhile.
-2) python 2.6/2.7
-3) pycrypto 
+1. Dns proxy configured, You can use python DNS Proxy or Windows DNS Server which I ran for awhile.
+2. python 2.6/2.7
+3. pycrypto 
 
 Setup:
 After you have DNS Server running, Configure Info.ss to your external IP.
+
 Then run the emulator.py
 
 
