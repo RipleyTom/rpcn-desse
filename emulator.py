@@ -237,12 +237,12 @@ class Server(object):
             MapNA += "%4d %s\r\n" % (count, blocknames[blockID])
 
         regiontotalEU, blockslistEU = self.GhostManager.get_current_players(SERVER_PORT_EU)
-        MapEU = "Popular areas in North America:\r\n"
+        MapEU = "Popular areas in Europe:\r\n"
         for count, blockID in blockslist[::-1][0:15]:
             MapEU += "%4d %s\r\n" % (count, blocknames[blockID])
 
         regiontotalJP, blockslistJP = self.GhostManager.get_current_players(SERVER_PORT_JP)
-        MapJP = "Popular areas in North America:\r\n"
+        MapJP = "Popular areas in Japan:\r\n"
         for count, blockID in blockslist[::-1][0:15]:
             MapJP += "%4d %s\r\n" % (count, blocknames[blockID])
 
