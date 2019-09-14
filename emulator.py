@@ -231,6 +231,21 @@ class Server(object):
         motd3 += "Thank you Everyone\r\n"
         motd3 += "- Yuvi\r\n"
 
+        regiontotalNA, blockslistNA = self.GhostManager.get_current_players(SERVER_PORT_US)
+        MapNA = "Popular areas in North America:\r\n"
+        for count, blockID in blockslist[::-1][0:15]:
+            MapNA += "%4d %s\r\n" % (count, blocknames[blockID])
+
+        regiontotalEU, blockslistEU = self.GhostManager.get_current_players(SERVER_PORT_EU)
+        MapEU = "Popular areas in North America:\r\n"
+        for count, blockID in blockslist[::-1][0:15]:
+            MapEU += "%4d %s\r\n" % (count, blocknames[blockID])
+
+        regiontotalJP, blockslistJP = self.GhostManager.get_current_players(SERVER_PORT_JP)
+        MapJP = "Popular areas in North America:\r\n"
+        for count, blockID in blockslist[::-1][0:15]:
+            MapJP += "%4d %s\r\n" % (count, blocknames[blockID])
+
         # first byte
         # 0x00 - present EULA, create account (not working)
         # 0x01 - present MOTD, can be multiple
@@ -242,8 +257,11 @@ class Server(object):
 
         # Write Server Status to Text for website
         motdfile = open("/var/www/html/status.txt","w"); motdfile.write(motd2); motdfile.close();
-        with open("/var/www/html/status.txt", "a") as myfile:
-            myfile.write("\nWorld Tendency: Neutral")
+        motdfile = open("/var/www/html/MapNA_Count.txt","w"); motdfile.write(MapNA); motdfile.close();
+        motdfile = open("/var/www/html/MapEU_Count.txt","w"); motdfile.write(MapEU); motdfile.close();
+        motdfile = open("/var/www/html/MapJP_Count.txt","w"); motdfile.write(MapJP); motdfile.close();
+        # with open("/var/www/html/status.txt", "a") as myfile:
+        #    myfile.write("\nWorld Tendency: Neutral")
             
         return 0x02, "\x01" + "\x03" + motd + "\x00" + motd2 + "\x00" + motd3 + "\x00"
 
