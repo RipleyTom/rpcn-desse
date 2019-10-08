@@ -41,7 +41,7 @@ class PlayerManager(object):
         characterID = params["characterID"]
         index = params["index"]
         characterID = characterID + index[0]
-        #BAN PSN ID Here
+        #BAN PSN ID Here, add 0 to end 
         if characterID == "":
             logging.info("BANNED Player %r Tryed to login and failed" % characterID)
             return 0x00
