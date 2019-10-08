@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\emu"
   ],
-  "SelectedNode": "\\emulator.py",
+  "SelectedNode": "\\emu\\PlayerManager.py",
   "PreviewInSolutionExplorer": false
 }

@@ -42,7 +42,7 @@ class PlayerManager(object):
         index = params["index"]
         characterID = characterID + index[0]
         #BAN PSN ID Here, add 0 to end 
-        if characterID == "":
+        if characterID in [""]:
             logging.info("BANNED Player %r Tryed to login and failed" % characterID)
             return 0x00
         else:
