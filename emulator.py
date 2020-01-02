@@ -220,9 +220,7 @@ class Server(object):
         motd += "Thank you to ymgve for the Emulation Software\r\n"
         
         regiontotal, blockslist = self.GhostManager.get_current_players(serverport)
-        motd2  = "Current players online: %d\r\n" % sum(regiontotal.values())
-        motd2 += "US %d  EU %d  JP %d\r\n" % (regiontotal[SERVER_PORT_US], regiontotal[SERVER_PORT_EU], regiontotal[SERVER_PORT_JP])
-        motd2 += "Popular areas in your region:\r\n"
+        motd2 = "Current Popular Areas:\r\n"
         for count, blockID in blockslist[::-1][0:15]:
             motd2 += "%4d %s\r\n" % (count, blocknames[blockID])
 
